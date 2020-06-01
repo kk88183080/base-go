@@ -61,7 +61,7 @@ func (g GetPodAction) Exec(t *Trasinfo) error {
 }
 
 func setTest() {
-	// 编译错误
+
 	var f1 Fragment = new(GetPodAction)
 
 	// 编译错误
@@ -70,7 +70,6 @@ func setTest() {
 	// 编译错误
 	var f2 Fragment = &GetPodAction{}
 
-	//
 	var f3 Fragment = GetPodAction{}
 
 	fmt.Println(f1, f2, f3)
