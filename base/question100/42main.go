@@ -1,0 +1,66 @@
+package main
+
+import "fmt"
+
+func main() {
+	//_42test2()
+	_42test3()
+}
+
+var gvar int
+
+func _42test() {
+
+	// unused 编译错误
+	//var one int
+	//two := 2
+	//var three int
+	//three = 3
+
+	func(unused string) {
+		fmt.Println("unused arg. no compiler error")
+	}("what?")
+
+}
+
+//变量 one、two 和 three 声明未使用。知识点：未使用变量。如果有未使用的变量代码将编译失败。但也有例外，
+//函数中声明的变量必须要使用，但可以有未使用的全局变量。函数的参数未使用也是可以的。
+//如果你给未使用的变量分配了一个新值，代码也还是会编译失败。你需要在某个地方使用这个变量，才能让编译器愉快的编译。
+
+type _42ConfigOne struct {
+	Daemon string
+}
+
+func (c *_42ConfigOne) String() string {
+	return fmt.Sprintf("print: %v", c)
+}
+
+func _42test2() {
+	c := &_42ConfigOne{}
+	c.String()
+}
+
+//运行时错误。如果类型实现 String() 方法，当格式化输出时会自动使用 String() 方法。
+// 上面这段代码是在该类型的 String() 方法内使用格式化输出，导致递归调用，最后抛错。
+// runtime: goroutine stack exceeds 1000000000-byte limit
+// fatal error: stack overflow
+
+func _42test3() {
+	var a = []int{1, 2, 3, 4, 5}
+	var r = make([]int, 0)
+
+	for i, v := range a {
+		if i == 0 {
+			a = append(a, 6, 7)
+			//a = append(a, []int{6, 7}...)
+		}
+
+		r = append(r, v)
+	}
+
+	fmt.Println(r) // 1,2,3,4,5
+	fmt.Println(a) // 1,2,3,4,5,6,7
+}
+
+//a 在 for range 过程中增加了两个元素 ，len 由 5 增加到 7，但 for range 时会使用 a 的副本 a' 参与循环，副本的 len 依旧是 5，
+//因此 for range 只会循环 5 次，也就只获取 a 对应的底层数组的前 5 个元素。
