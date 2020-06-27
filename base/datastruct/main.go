@@ -13,7 +13,10 @@ func main() {
 	//testStack()
 	//testArrayStack()
 	//testArrayStackX()
-	testArrayStackXIterator()
+	//testArrayStackXIterator()
+
+	//testSumNum()
+	testSumStack()
 }
 
 func test1() {
@@ -143,4 +146,12 @@ func testArrayStackXIterator() {
 		fmt.Println(next)
 	}
 	fmt.Println(s)
+}
+
+func testSumNum() { // 5+4+3 + 2 + 1
+	fmt.Println(StackArray.Sum(5))
+}
+
+func testSumStack() { // 5=15 3=6
+	fmt.Println(StackArray.SumStack(6))
 }
