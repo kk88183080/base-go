@@ -19,7 +19,9 @@ func main() {
 	//testSumStack()
 	//testFeb()
 	//testFebStack()
-	testFebStackDesc()
+	//testFebStackDesc()
+	testFiles()
+	testFilesStack()
 }
 
 func test1() {
@@ -169,4 +171,29 @@ func testFebStack() {
 
 func testFebStackDesc() {
 	fmt.Println(StackArray.FerbiStackDesc(9))
+}
+
+/**
+查询全部的文件
+*/
+func testFiles() {
+
+	path := "/Users/liangweili/Desktop/bigdata-workspace/base-go/base/DataStructOption"
+	files := []string{}
+	all, _ := StackArray.GetAll(path, files)
+
+	for i := 0; i < len(all); i++ {
+		fmt.Println(i, ">", all[i])
+	}
+}
+
+func testFilesStack() {
+	fmt.Println("stack impl")
+
+	path := "/Users/liangweili/Desktop/bigdata-workspace/base-go/base/DataStructOption"
+	stack := StackArray.GetAllStack(path)
+
+	for i, v := range stack {
+		fmt.Println(i, ">", v)
+	}
 }
