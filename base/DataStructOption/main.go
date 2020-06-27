@@ -20,8 +20,11 @@ func main() {
 	//testFeb()
 	//testFebStack()
 	//testFebStackDesc()
-	testFiles()
-	testFilesStack()
+	//testFiles()
+	//testFilesStack()
+
+	//testFilesTree()
+	testFilesDeep()
 }
 
 func test1() {
@@ -196,4 +199,23 @@ func testFilesStack() {
 	for i, v := range stack {
 		fmt.Println(i, ">", v)
 	}
+}
+
+/**
+查询全部的文件
+*/
+func testFilesTree() {
+
+	path := "/Users/liangweili/Desktop/bigdata-workspace/base-go/base/DataStructOption"
+	files := []string{}
+	all, _ := StackArray.GetAllX(path, files, 1)
+
+	for i := 0; i < len(all); i++ {
+		fmt.Println(all[i])
+	}
+}
+
+func testFilesDeep() {
+	path := "/Users/liangweili/Desktop/bigdata-workspace/base-go/base/DataStructOption"
+	StackArray.QueryFileDeep(path, 1)
 }
