@@ -2,13 +2,16 @@ package main
 
 import (
 	"./ArrayList"
+	"./StackArray"
 	"fmt"
 )
 
 func main() {
 
 	//test4()
-	test5()
+	//test5()
+	//testStack()
+	testArrayStack()
 }
 
 func test1() {
@@ -73,4 +76,36 @@ func test5() {
 
 	fmt.Println("输出list")
 	fmt.Println(list)
+}
+
+func testStack() {
+
+	s := StackArray.NewStack()
+
+	for i := 0; i < 10; i++ {
+		s.Push(i)
+	}
+
+	fmt.Println(s)
+
+	for i := 0; i < 10; i++ {
+		fmt.Println(s.Pop())
+	}
+	fmt.Println(s)
+}
+
+func testArrayStack() {
+
+	s := ArrayList.NewArrayListStack()
+
+	for i := 0; i < 10; i++ {
+		s.Push(i)
+	}
+
+	fmt.Println(s)
+
+	for i := 0; i < 10; i++ {
+		fmt.Println(s.Pop())
+	}
+	fmt.Println(s)
 }
