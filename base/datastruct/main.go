@@ -16,7 +16,10 @@ func main() {
 	//testArrayStackXIterator()
 
 	//testSumNum()
-	testSumStack()
+	//testSumStack()
+	//testFeb()
+	//testFebStack()
+	testFebStackDesc()
 }
 
 func test1() {
@@ -154,4 +157,16 @@ func testSumNum() { // 5+4+3 + 2 + 1
 
 func testSumStack() { // 5=15 3=6
 	fmt.Println(StackArray.SumStack(6))
+}
+
+func testFeb() {
+	fmt.Println(StackArray.Ferbi(9))
+}
+
+func testFebStack() {
+	fmt.Println(StackArray.FerbiStack(6))
+}
+
+func testFebStackDesc() {
+	fmt.Println(StackArray.FerbiStackDesc(9))
 }
