@@ -11,7 +11,9 @@ func main() {
 	//test4()
 	//test5()
 	//testStack()
-	testArrayStack()
+	//testArrayStack()
+	//testArrayStackX()
+	testArrayStackXIterator()
 }
 
 func test1() {
@@ -106,6 +108,39 @@ func testArrayStack() {
 
 	for i := 0; i < 10; i++ {
 		fmt.Println(s.Pop())
+	}
+	fmt.Println(s)
+}
+
+func testArrayStackX() {
+
+	s := ArrayList.NewArrayListStackX()
+
+	for i := 0; i < 10; i++ {
+		s.Push(i)
+	}
+
+	fmt.Println(s)
+
+	for i := 0; i < 10; i++ {
+		fmt.Println(s.Pop())
+	}
+	fmt.Println(s)
+}
+
+func testArrayStackXIterator() {
+
+	s := ArrayList.NewArrayListStackX()
+
+	for i := 0; i < 10; i++ {
+		s.Push(i)
+	}
+
+	fmt.Println(s)
+
+	for it := s.Myit; it.HashNext(); {
+		next, _ := it.Next()
+		fmt.Println(next)
 	}
 	fmt.Println(s)
 }
