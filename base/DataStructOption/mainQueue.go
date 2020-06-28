@@ -6,7 +6,8 @@ import (
 )
 
 func main() {
-	testQueue()
+	//testQueue()
+	testQueueFile()
 }
 
 /**
@@ -21,4 +22,11 @@ func testQueue() {
 		fmt.Println(q.DeQueue())
 	}
 	fmt.Println(q.DeQueue())
+}
+
+/**
+查询文件
+*/
+func testQueueFile() {
+	Queue.QueryFile("/Users/liangweili/Desktop/bigdata-workspace/base-go/base/DataStructOption")
 }
