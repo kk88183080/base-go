@@ -22,9 +22,15 @@ func main() {
 	//InsertSort(arr)
 	//fmt.Println("main:", arr)
 
+	//arr := []int{1, 9, 2, 8, 3, 7, 4, 6, 5, 10}
+	////MaoPaoSort(arr)
+	//MaoPaoSort2(arr)
+	//fmt.Println("main:", arr)
+
 	arr := []int{1, 9, 2, 8, 3, 7, 4, 6, 5, 10}
 	//MaoPaoSort(arr)
-	MaoPaoSort2(arr)
+	//HeapSortMax(arr, len(arr))
+	HeapSort(arr)
 	fmt.Println("main:", arr)
 }
 
@@ -128,7 +134,7 @@ func MaoPaoSort(arr []int) {
 }
 
 /**
-冒泡排序
+冒泡排序2
 // 1, 2, 3
 
 // 2, 1, 3
@@ -157,4 +163,57 @@ func MaoPaoSort2(arr []int) {
 			break
 		}
 	}
+}
+
+/**
+堆排序
+1, 2, 3, 4, 5, 6, 7
+		1
+	2 		3
+4    5    6  7
+*/
+func HeapSortMax(arr []int, length int) {
+
+	//length := len(arr)
+
+	if length <= 1 {
+		return
+	}
+
+	depth := length/2 - 1 // 树的深度，左节点2*n+1，右节点2*n-1
+	for i := depth; i >= 0; i-- {
+		topmax := i
+		leftChild := 2*i + 1
+		rightChild := 2*i + 2
+
+		if leftChild <= length-1 && arr[leftChild] > arr[topmax] {
+			topmax = leftChild
+		}
+
+		if rightChild <= length-1 && arr[rightChild] > arr[topmax] {
+			topmax = rightChild
+		}
+
+		if topmax != i { // 完成交换
+			arr[topmax], arr[i] = arr[i], arr[topmax]
+		}
+		fmt.Println(arr)
+	}
+
+}
+
+func HeapSort(arr []int) {
+	length := len(arr)
+	if length <= 1 {
+		return
+	}
+
+	for i := 0; i < length; i++ {
+		lastmesslen := length - i
+		HeapSortMax(arr, lastmesslen)
+		if i < length {
+			arr[0], arr[lastmesslen-1] = arr[lastmesslen-1], arr[0]
+		}
+	}
+
 }
