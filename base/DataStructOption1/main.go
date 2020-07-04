@@ -27,11 +27,47 @@ func main() {
 	//MaoPaoSort2(arr)
 	//fmt.Println("main:", arr)
 
+	/*	arr := []int{1, 9, 2, 8, 3, 7, 4, 6, 5, 10}
+		//MaoPaoSort(arr)
+		//HeapSortMax(arr, len(arr))
+		HeapSort(arr)
+		fmt.Println("main:", arr)*/
+
 	arr := []int{1, 9, 2, 8, 3, 7, 4, 6, 5, 10}
-	//MaoPaoSort(arr)
-	//HeapSortMax(arr, len(arr))
-	HeapSort(arr)
-	fmt.Println("main:", arr)
+	fmt.Println("main:", QuickSort(arr))
+}
+
+/**
+快速排序
+*/
+func QuickSort(arr []int) []int {
+	length := len(arr)
+	if length <= 1 {
+		return arr
+	}
+
+	splitdata := arr[0]       // 以第一个为基准
+	low := make([]int, 0, 0)  // 存储比基准小的
+	high := make([]int, 0, 0) // 存储比基准大的
+	mid := make([]int, 0, 0)  // 存储与基准相等的
+	mid = append(mid, splitdata)
+
+	// 第一个数不用处理
+	for i := 1; i < length; i++ {
+		if arr[i] < splitdata { // 存储小的
+			low = append(low, arr[i])
+		} else if arr[i] > splitdata {
+			high = append(high, arr[i])
+		} else {
+			mid = append(mid, arr[i])
+		}
+	}
+
+	low, high = QuickSort(low), QuickSort(high) // 切割，递归处理
+
+	rs := append(append(low, mid...), high...)
+	return rs
+
 }
 
 /**
