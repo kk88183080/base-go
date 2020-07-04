@@ -23,7 +23,8 @@ func main() {
 	//fmt.Println("main:", arr)
 
 	arr := []int{1, 9, 2, 8, 3, 7, 4, 6, 5, 10}
-	MaoPaoSort(arr)
+	//MaoPaoSort(arr)
+	MaoPaoSort2(arr)
 	fmt.Println("main:", arr)
 }
 
@@ -117,11 +118,43 @@ func MaoPaoSort(arr []int) {
 		return
 	}
 
-	for i := 0; i < length; i++ {
+	for i := 0; i < length-1; i++ {
 		for j := i + 1; j < length; j++ {
 			if arr[i] < arr[j] {
 				arr[i], arr[j] = arr[j], arr[i]
 			}
+		}
+	}
+}
+
+/**
+冒泡排序
+// 1, 2, 3
+
+// 2, 1, 3
+// 2, 3, 1
+
+//
+
+*/
+func MaoPaoSort2(arr []int) {
+
+	length := len(arr)
+
+	if length <= 1 {
+		return
+	}
+
+	for i := 0; i < length-1; i++ {
+		isSwap := false
+		for j := 0; j < length-1-i; j++ {
+			if arr[j] < arr[j+1] {
+				arr[j], arr[j+1] = arr[j+1], arr[j]
+				isSwap = true
+			}
+		}
+		if !isSwap {
+			break
 		}
 	}
 }
