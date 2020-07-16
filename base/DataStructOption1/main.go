@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"strings"
 )
 
@@ -33,8 +34,189 @@ func main() {
 		HeapSort(arr)
 		fmt.Println("main:", arr)*/
 
+	//arr := []int{1, 9, 2, 8, 3, 7, 4, 6, 5, 10}
+	//fmt.Println("main:", QuickSort1(arr))
+
+	//arr := []int{1, 9, 2, 8, 3, 7, 4, 6, 5, 10}
+	//JiOusort(arr)
+	//fmt.Println("main:", arr)
+
+	//arr := []int{1, 9, 2, 8, 3, 7, 4, 6, 5, 10}
+	//fmt.Println("main:", GuiBingSort(arr))
+
 	arr := []int{1, 9, 2, 8, 3, 7, 4, 6, 5, 10}
-	fmt.Println("main:", QuickSort(arr))
+	XiErSort(arr)
+	fmt.Println("main:", arr)
+}
+
+/**
+希尔排序
+*/
+func XiErSort(arr []int) {
+	length := len(arr)
+	if length <= 1 {
+		return
+	}
+
+	gap := length / 2
+	for gap > 0 {
+		for i := 0; i < gap; i++ {
+			XiErSortStep(arr, i, gap)
+		}
+		gap /= 2
+	}
+}
+
+func XiErSortStep(arr []int, start int, gap int) {
+	length := len(arr)
+	if length <= 1 {
+		return
+	}
+
+	for i := start + gap; i < length; i += gap { //插入排序
+
+		backup := arr[i] // 备份数据
+		j := i - gap
+
+		for j >= 0 && backup < arr[j] {
+			arr[j+gap] = arr[j]
+			j -= gap
+		}
+
+		arr[j+gap] = backup
+	}
+}
+
+/**
+归并排序
+1, 9, 2, 8, 3, 7, 4, 6, 5, 10
+第一轮，1, 9, 2, 8, 3, 7  			4, 6, 5, 10
+第二轮  1, 9, 2  		8, 3, 7
+分段排序，然后再合并
+*/
+func GuiBingSort(arr []int) []int {
+	length := len(arr)
+	if length <= 1 {
+		return arr
+	}
+
+	if length == 10 { // 优化，使用其他方法
+
+	}
+	mid := length / 2
+	leftarr := GuiBingSort(arr[:mid])
+	rightarr := GuiBingSort(arr[mid:])
+
+	return Merge(leftarr, rightarr)
+}
+
+/**
+归并排序
+合并数据
+*/
+func Merge(leftarr []int, rightarr []int) []int {
+	leftindex := 0
+	rightindex := 0
+
+	lastarr := []int{}
+	for leftindex < len(leftarr) && rightindex < len(rightarr) {
+		if leftarr[leftindex] < rightarr[rightindex] { // 小于
+			lastarr = append(lastarr, leftarr[leftindex])
+			leftindex++
+		} else if leftarr[leftindex] > rightarr[rightindex] { // 大于
+			lastarr = append(lastarr, rightarr[rightindex])
+			rightindex++
+		} else { // 相等
+			lastarr = append(lastarr, leftarr[leftindex])
+			leftindex++
+			lastarr = append(lastarr, rightarr[rightindex])
+			rightindex++
+		}
+	}
+
+	for leftindex < len(leftarr) { // 把左边没有归并完的数据进行归并
+		lastarr = append(lastarr, leftarr[leftindex])
+		leftindex++
+	}
+
+	for rightindex < len(rightarr) { // 把右边没有归并完的数据进行归并
+		lastarr = append(lastarr, rightarr[rightindex])
+		rightindex++
+	}
+
+	return lastarr
+}
+
+/**
+奇偶排序
+1,7,3,8,2,9,5,6,4,0
+
+*/
+func JiOusort(arr []int) {
+	length := len(arr)
+	if length <= 1 {
+		return
+	}
+
+	isSorted := false
+
+	for isSorted == false {
+
+		isSorted = true
+		for i := 1; i < length-1; i += 2 { // 奇数位
+			if i+1 <= length-1 && arr[i] > arr[i+1] { //是不要交换
+				arr[i], arr[i+1] = arr[i+1], arr[i]
+				isSorted = false
+			}
+		}
+
+		for i := 0; i < length-1; i += 2 { // 偶数位
+			if i+1 <= length-1 && arr[i] > arr[i+1] { //是不要交换
+				arr[i], arr[i+1] = arr[i+1], arr[i]
+				isSorted = false
+			}
+		}
+
+		fmt.Println("con:", arr)
+	}
+}
+
+/**
+快速排序优化
+*/
+func QuickSort1(arr []int) []int {
+	length := len(arr)
+	if length <= 1 {
+		return arr
+	}
+	//n := length - 1           // 这个位置值要>=0 <=length-1
+	n := rand.Int() % length  // 获取随机数
+	splitdata := arr[n]       // 以第一个为基准
+	low := make([]int, 0, 0)  // 存储比基准小的
+	high := make([]int, 0, 0) // 存储比基准大的
+	mid := make([]int, 0, 0)  // 存储与基准相等的
+	mid = append(mid, splitdata)
+
+	// 第一个数不用处理
+	for i := 0; i < length; i++ {
+		if n == i {
+			continue
+		} else {
+			if arr[i] < splitdata { // 存储小的
+				low = append(low, arr[i])
+			} else if arr[i] > splitdata {
+				high = append(high, arr[i])
+			} else {
+				mid = append(mid, arr[i])
+			}
+		}
+	}
+
+	low, high = QuickSort(low), QuickSort(high) // 切割，递归处理
+
+	rs := append(append(low, mid...), high...)
+	return rs
+
 }
 
 /**
